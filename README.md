@@ -1,2 +1,2 @@
 # crc32_revert
-Revert an crc32 checksum, printable character not guaranteed.
+Revert a crc32 checksum, printable character not guaranteed.
