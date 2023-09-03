@@ -26,8 +26,7 @@ def crc32_revert(checksum : int):
     g = x^32 + x^26 + x^23 + x^22 + x^16 + x^12 + x^11 + x^10 + x^8 +x^7 + x^5 + x^4 + x^2 + x + 1
     p = x^32
     r = PR([int(i) for i in bin(checksum ^^ 0xFFFFFFFF)[2:]])
-    k = -r * inverse_mod(g, p)
-    k %= p
+    k = -r * inverse_mod(g, p) + PR.random_element(degree = 512) * p
     fp = r + k * g
     f = fp // p
     coeff = f.coefficients(sparse=False)
@@ -44,5 +43,7 @@ def crc32_revert(checksum : int):
 crc_val = crc32(b'abc')
 reverted = crc32_revert(crc_val)
 new_crc = crc32(reverted)
+print(reverted.hex())
+print(b'abc')
 
 print(crc_val == new_crc)
